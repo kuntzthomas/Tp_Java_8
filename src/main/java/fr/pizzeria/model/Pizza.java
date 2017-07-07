@@ -11,33 +11,47 @@ public class Pizza {
 	String nom;
 	double prix;
 	static int compteurId;
-	
-	public Pizza(){
-		
+	CategoriePizza categoriePizza;
+
+	public Pizza() {
+
 	}
-	
+
 	/**
-	 * Constructeur Pizza
-	 * 
 	 * @param id
 	 * @param code
 	 * @param nom
 	 * @param prix
+	 * @param categoriePizza
 	 */
-	public Pizza(int id, String code, String nom, double prix){
-		this.id = id ;
+	public Pizza(int id, String code, String nom, double prix, CategoriePizza categoriePizza) {
+
+		this.id = id;
 		this.code = code;
 		this.nom = nom;
 		this.prix = prix;
-		
+		this.categoriePizza = categoriePizza;
 	}
-	
-	public Pizza(String code, String nom, double prix){
+
+	/**
+	 * @param code
+	 * @param nom
+	 * @param prix
+	 * @param categoriePizza
+	 */
+	public Pizza(String code, String nom, double prix, CategoriePizza categoriePizza) {
+
 		this.id = compteurId++;
 		this.code = code;
 		this.nom = nom;
 		this.prix = prix;
-		
+		this.categoriePizza = categoriePizza;
+	}
+
+	public String toString(String code, String nom, double prix, CategoriePizza categoriePizza) {
+
+		String str = this.code + " -> " + this.nom + " (" + this.prix + ") " + this.categoriePizza;
+		return str;
 	}
 
 	public int getId() {
@@ -71,6 +85,13 @@ public class Pizza {
 	public void setPrix(double prix) {
 		this.prix = prix;
 	}
-	
-	
+
+	public CategoriePizza getCategoriePizza() {
+		return categoriePizza;
+	}
+
+	public void setCategoriePizza(CategoriePizza categoriePizza) {
+		this.categoriePizza = categoriePizza;
+	}
+
 }

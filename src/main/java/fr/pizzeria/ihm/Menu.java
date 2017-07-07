@@ -7,6 +7,10 @@ import java.util.Scanner;
 
 import fr.pizzeria.dao.PizzaDaoMemoire;
 
+/**
+ * @author Thomas
+ *
+ */
 public class Menu {
 
 	static Scanner questionUser = new Scanner(System.in).useLocale(Locale.US);
@@ -21,6 +25,9 @@ public class Menu {
 		
 	}
 
+	/**
+	 *  Affichage de la liste des pizzas
+	 */
 	public void afficher() {
 
 		System.out.println("***** Pizzeria Administration *****");
@@ -31,6 +38,11 @@ public class Menu {
 		System.out.println("99. Sortie.");
 	}
 
+	/**
+	 * Lance la génération du menu puis l'aiguillage dans celui-ci
+	 * 
+	 * @throws Exception
+	 */
 	public void manage() throws Exception {
 
 		PizzaDaoMemoire dao = new PizzaDaoMemoire();
@@ -45,7 +57,7 @@ public class Menu {
 			switch (choixMenu) {
 
 			case 1:
-
+				
 				optionMenu.get(0).execute(dao);
 				break;
 

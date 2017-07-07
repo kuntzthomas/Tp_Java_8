@@ -3,8 +3,11 @@ package fr.pizzeria.ihm;
 import java.util.Locale;
 import java.util.Scanner;
 
+import org.apache.commons.text.similarity.LevenshteinDistance;
+
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.exception.UpdatePizzaException;
+import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
 public class ModifierPizzaOptionMenu extends OptionMenu {
@@ -46,8 +49,22 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 
 			System.out.println("Veuillez saisir le prix");
 			double prix = questionUser.nextDouble();
+			
+			int i = 0;
+			for (CategoriePizza categories : CategoriePizza.values()) {
+				System.out.println(i + " " + categories.name());
+				i++;
+			}
+			
+			System.out.println("Veuillez saisir la catégorie de la pizza");
+			String categoriePizza = questionUser.next();
 
-			Pizza pizza = new Pizza(code, nom, prix);
+			for (CategoriePizza categories : CategoriePizza.values()) {
+				if (LevenshteinDistance.getDefaultInstance().apply(categories.name(), categoriePizza) <= 2)
+					System.out.println(categories.name());
+			}
+
+			Pizza pizza = new Pizza(code, nom, prix, CategoriePizza.valueOf(categoriePizza));
 
 			try {
 				dao.updatePizza(codePizza, pizza);

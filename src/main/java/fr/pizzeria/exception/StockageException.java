@@ -1,5 +1,9 @@
 package fr.pizzeria.exception;
 
+/**
+ * @author Thomas
+ *
+ */
 public class StockageException extends Exception {
 
 	public StockageException() {

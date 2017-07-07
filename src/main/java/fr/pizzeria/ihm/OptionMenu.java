@@ -2,19 +2,24 @@ package fr.pizzeria.ihm;
 
 import fr.pizzeria.dao.IPizzaDao;
 
+/**
+ * @author Thomas
+ *
+ */
 public abstract class OptionMenu {
 
 	protected String libelle;
 
-	// protected IPizzaDao = dao;
-	//
-	// public OptionMenu(listePizza){
-	// super();
-	// this.dao = dao;
-	// }
-
+	/**
+	 * @return
+	 */
 	public abstract String getLibelle();
 
+	/**
+	 * @param dao
+	 * @return
+	 * @throws Exception
+	 */
 	public abstract boolean execute(IPizzaDao dao) throws Exception;
 	
 }

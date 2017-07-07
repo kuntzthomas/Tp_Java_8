@@ -6,39 +6,53 @@ import java.util.List;
 import fr.pizzeria.exception.DeletePizzaException;
 import fr.pizzeria.exception.SavePizzaException;
 import fr.pizzeria.exception.UpdatePizzaException;
+import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
+/**
+ * @author Thomas
+ *
+ */
 public class PizzaDaoMemoire implements IPizzaDao {
 
 	List<Pizza> listePizza = new ArrayList<Pizza>();
-	
+
 	public PizzaDaoMemoire() {
 
-		listePizza.add(new Pizza("PEP", "Pépéroni", 12.50));
-		listePizza.add(new Pizza("MAR", "Margherita", 14.00));
-		listePizza.add(new Pizza("REI", "La Reine", 11.50));
-		listePizza.add(new Pizza("FRO", "La 4 fromage", 12.00));
-		listePizza.add(new Pizza("CAN", "La cannibale", 12.50));
-		listePizza.add(new Pizza("SAV", "La savoyarde", 13.00));
-		listePizza.add(new Pizza("ORI", "L'orientale", 13.50));
-		listePizza.add(new Pizza("IND", "L'indienne", 14.00));
+		listePizza.add(new Pizza("PEP", "Pépéroni", 12.50, CategoriePizza.VIANDE));
+		listePizza.add(new Pizza("MAR", "Margherita", 14.00, CategoriePizza.VIANDE));
+		listePizza.add(new Pizza("REI", "La Reine", 11.50, CategoriePizza.VIANDE));
+		listePizza.add(new Pizza("FRO", "La 4 fromage", 12.00, CategoriePizza.FROMAGE));
+		listePizza.add(new Pizza("CAN", "La cannibale", 12.50, CategoriePizza.VIANDE));
+		listePizza.add(new Pizza("SAV", "La savoyarde", 13.00, CategoriePizza.VIANDE));
+		listePizza.add(new Pizza("ORI", "L'orientale", 13.50, CategoriePizza.VIANDE));
+		listePizza.add(new Pizza("IND", "L'indienne", 14.00, CategoriePizza.VIANDE));
 
 	}
 
+	/* (non-Javadoc)
+	 * @see fr.pizzeria.dao.IPizzaDao#findAllPizzas()
+	 */
 	public List<Pizza> findAllPizzas() {
 
 		return listePizza;
 	}
 
+	/* (non-Javadoc)
+	 * @see fr.pizzeria.dao.IPizzaDao#saveNewPizza(fr.pizzeria.model.Pizza)
+	 */
 	public boolean saveNewPizza(Pizza pizza) throws SavePizzaException {
 
-				listePizza.add(new Pizza(pizza.getCode(), pizza.getNom(), pizza.getPrix()));
-				System.out.println("Pizza ajoutée");
-				System.out.println("");
-		
+		listePizza.add(new Pizza(pizza.getCode(), pizza.getNom(), pizza.getPrix(), pizza.getCategoriePizza()));
+		System.out.println("Pizza ajoutée");
+		System.out.println("");
+
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see fr.pizzeria.dao.IPizzaDao#updatePizza(java.lang.String, fr.pizzeria.model.Pizza)
+	 */
 	public boolean updatePizza(String codeUpDate, Pizza pizza) throws UpdatePizzaException {
 
 		for (int i = 0; i < listePizza.size(); i++) {
@@ -48,6 +62,7 @@ public class PizzaDaoMemoire implements IPizzaDao {
 				listePizza.get(i).setCode(pizza.getCode());
 				listePizza.get(i).setNom(pizza.getNom());
 				listePizza.get(i).setPrix(pizza.getPrix());
+				listePizza.get(i).setCategoriePizza(pizza.getCategoriePizza());
 
 			}
 		}
@@ -56,6 +71,9 @@ public class PizzaDaoMemoire implements IPizzaDao {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see fr.pizzeria.dao.IPizzaDao#verifierExistence(java.lang.String)
+	 */
 	public void verifierExistence(String codePizza) throws UpdatePizzaException {
 
 		boolean trouve = false;
@@ -72,6 +90,9 @@ public class PizzaDaoMemoire implements IPizzaDao {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see fr.pizzeria.dao.IPizzaDao#deletePizza(java.lang.String)
+	 */
 	public boolean deletePizza(String codeUpDate) throws DeletePizzaException {
 
 		for (int i = 0; i < listePizza.size(); i++) {
