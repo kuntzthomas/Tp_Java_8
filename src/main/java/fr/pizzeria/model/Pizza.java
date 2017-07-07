@@ -10,6 +10,7 @@ public class Pizza {
 	String code;
 	String nom;
 	double prix;
+	static int compteurId;
 	
 	public Pizza(){
 		
@@ -32,6 +33,7 @@ public class Pizza {
 	}
 	
 	public Pizza(String code, String nom, double prix){
+		this.id = compteurId++;
 		this.code = code;
 		this.nom = nom;
 		this.prix = prix;

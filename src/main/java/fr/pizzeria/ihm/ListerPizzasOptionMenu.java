@@ -12,12 +12,12 @@ public class ListerPizzasOptionMenu extends OptionMenu {
 	@Override
 	public boolean execute(IPizzaDao dao) {
 
-		for (int i = 0; i < dao.findAllPizzas().length; i++) {
+		for (int i = 0; i < dao.findAllPizzas().size(); i++) {
 
-			if (dao.findAllPizzas()[i] != null) {
+			if (dao.findAllPizzas() != null) {
 
-				System.out.print(dao.findAllPizzas()[i].getCode() + " -> " + dao.findAllPizzas()[i].getNom() + " ("
-						+ dao.findAllPizzas()[i].getPrix() + ")");
+				System.out.print(dao.findAllPizzas().get(i).getCode() + " -> " + dao.findAllPizzas().get(i).getNom() + " ("
+						+ dao.findAllPizzas().get(i).getPrix() + ")");
 
 				System.out.println(" ");
 			}

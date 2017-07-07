@@ -1,6 +1,8 @@
 package fr.pizzeria.ihm;
 
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Scanner;
 
 import fr.pizzeria.dao.PizzaDaoMemoire;
@@ -8,23 +10,23 @@ import fr.pizzeria.dao.PizzaDaoMemoire;
 public class Menu {
 
 	static Scanner questionUser = new Scanner(System.in).useLocale(Locale.US);
-	static OptionMenu[] optionMenu;
-
+	static Map<Integer, OptionMenu> optionMenu = new HashMap<Integer, OptionMenu>();
+	
 	public Menu() {
 
-		optionMenu = new OptionMenu[4];
-		optionMenu[0] = new ListerPizzasOptionMenu();
-		optionMenu[1] = new AjouterPizzaOptionMenu();
-		optionMenu[2] = new ModifierPizzaOptionMenu();
-		optionMenu[3] = new SupprimerPizzaOptionMenu();
+		optionMenu.put(0, new ListerPizzasOptionMenu());
+		optionMenu.put(1, new AjouterPizzaOptionMenu());
+		optionMenu.put(2, new ModifierPizzaOptionMenu());
+		optionMenu.put(3, new SupprimerPizzaOptionMenu());
+		
 	}
 
 	public void afficher() {
 
 		System.out.println("***** Pizzeria Administration *****");
 
-		for (int i = 0; i < optionMenu.length; i++) {
-			System.out.println(optionMenu[i].getLibelle());
+		for (int i = 0; i < optionMenu.size(); i++) {
+			System.out.println((optionMenu.get(i)).getLibelle());
 		}
 		System.out.println("99. Sortie.");
 	}
@@ -44,24 +46,23 @@ public class Menu {
 
 			case 1:
 
-				optionMenu[0].execute(dao);
+				optionMenu.get(0).execute(dao);
 				break;
 
 			case 2:
 
-				optionMenu[1].execute(dao);
+				optionMenu.get(1).execute(dao);
 				break;
 
 			case 3:
 
-				optionMenu[0].execute(dao);
-				optionMenu[2].execute(dao);
+				optionMenu.get(0).execute(dao);
+				optionMenu.get(2).execute(dao);
 				break;
 
 			case 4:
 
-				
-				optionMenu[3].execute(dao);
+				optionMenu.get(3).execute(dao);
 				break;
 
 			case 99:
