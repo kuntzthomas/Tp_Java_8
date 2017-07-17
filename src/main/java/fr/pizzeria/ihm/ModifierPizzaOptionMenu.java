@@ -4,6 +4,8 @@ import java.util.Locale;
 import java.util.Scanner;
 
 import org.apache.commons.text.similarity.LevenshteinDistance;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.exception.UpdatePizzaException;
@@ -13,6 +15,7 @@ import fr.pizzeria.model.Pizza;
 public class ModifierPizzaOptionMenu extends OptionMenu {
 
 	Scanner questionUser = new Scanner(System.in).useLocale(Locale.US);
+	private static final Logger LOG = LoggerFactory.getLogger(ModifierPizzaOptionMenu.class);
 
 	@Override
 	public String getLibelle() {
@@ -23,45 +26,45 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 	@Override
 	public boolean execute(IPizzaDao dao) throws Exception {
 
-		System.out.println("Veuillez saisir le code");
-		System.out.println("(99 pour abandonner)");
+		LOG.info("Veuillez saisir le code");
+		LOG.info("(99 pour abandonner)");
 		String codePizza = null;
 		boolean codeTrouve = false;
-		
+
 		do {
 			codePizza = questionUser.next();
 			try {
 				dao.verifierExistence(codePizza);
 				codeTrouve = true;
 			} catch (UpdatePizzaException e) {
-				System.out.println(e.getMessage());
+				LOG.info(e.getMessage());
 				codeTrouve = false;
 			}
 		} while (!codeTrouve);
 
 		if (!codePizza.equals("99")) {
 
-			System.out.println("Veuillez saisir le nouveau code");
+			LOG.info("Veuillez saisir le nouveau code");
 			String code = questionUser.next();
 
-			System.out.println("Veuillez saisir le nom (sans espace)");
+			LOG.info("Veuillez saisir le nom (sans espace)");
 			String nom = questionUser.next();
 
-			System.out.println("Veuillez saisir le prix");
+			LOG.info("Veuillez saisir le prix");
 			double prix = questionUser.nextDouble();
-			
+
 			int i = 0;
 			for (CategoriePizza categories : CategoriePizza.values()) {
-				System.out.println(i + " " + categories.name());
+				LOG.info("{} {}", i, categories.name());
 				i++;
 			}
-			
-			System.out.println("Veuillez saisir la catégorie de la pizza");
+
+			LOG.info("Veuillez saisir la catégorie de la pizza");
 			String categoriePizza = questionUser.next();
 
 			for (CategoriePizza categories : CategoriePizza.values()) {
 				if (LevenshteinDistance.getDefaultInstance().apply(categories.name(), categoriePizza) <= 2)
-					System.out.println(categories.name());
+					LOG.info(categories.name());
 			}
 
 			Pizza pizza = new Pizza(code, nom, prix, CategoriePizza.valueOf(categoriePizza));
@@ -69,12 +72,10 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 			try {
 				dao.updatePizza(codePizza, pizza);
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
+				LOG.debug(e.getMessage());
 			}
 
-			System.out.println("Pizza modifiée");
-			System.out.println("");
-
+			LOG.info("Pizza modifiée");
 		}
 		return false;
 	}

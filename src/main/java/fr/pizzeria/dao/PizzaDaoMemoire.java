@@ -3,6 +3,9 @@ package fr.pizzeria.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.pizzeria.exception.DeletePizzaException;
 import fr.pizzeria.exception.SavePizzaException;
 import fr.pizzeria.exception.UpdatePizzaException;
@@ -16,6 +19,7 @@ import fr.pizzeria.model.Pizza;
 public class PizzaDaoMemoire implements IPizzaDao {
 
 	List<Pizza> listePizza = new ArrayList<Pizza>();
+	private static final Logger LOG = LoggerFactory.getLogger(PizzaDaoMemoire.class);
 
 	public PizzaDaoMemoire() {
 
@@ -30,7 +34,9 @@ public class PizzaDaoMemoire implements IPizzaDao {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see fr.pizzeria.dao.IPizzaDao#findAllPizzas()
 	 */
 	public List<Pizza> findAllPizzas() {
@@ -38,20 +44,24 @@ public class PizzaDaoMemoire implements IPizzaDao {
 		return listePizza;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see fr.pizzeria.dao.IPizzaDao#saveNewPizza(fr.pizzeria.model.Pizza)
 	 */
 	public boolean saveNewPizza(Pizza pizza) throws SavePizzaException {
 
 		listePizza.add(new Pizza(pizza.getCode(), pizza.getNom(), pizza.getPrix(), pizza.getCategoriePizza()));
-		System.out.println("Pizza ajoutée");
-		System.out.println("");
+		LOG.info("Pizza ajoutée");
 
 		return false;
 	}
 
-	/* (non-Javadoc)
-	 * @see fr.pizzeria.dao.IPizzaDao#updatePizza(java.lang.String, fr.pizzeria.model.Pizza)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see fr.pizzeria.dao.IPizzaDao#updatePizza(java.lang.String,
+	 * fr.pizzeria.model.Pizza)
 	 */
 	public boolean updatePizza(String codeUpDate, Pizza pizza) throws UpdatePizzaException {
 
@@ -66,12 +76,13 @@ public class PizzaDaoMemoire implements IPizzaDao {
 
 			}
 		}
-		System.out.println("Pizza mise à jour");
-		System.out.println("");
+		LOG.info("Pizza mise à jour");
 		return false;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see fr.pizzeria.dao.IPizzaDao#verifierExistence(java.lang.String)
 	 */
 	public void verifierExistence(String codePizza) throws UpdatePizzaException {
@@ -90,7 +101,9 @@ public class PizzaDaoMemoire implements IPizzaDao {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see fr.pizzeria.dao.IPizzaDao#deletePizza(java.lang.String)
 	 */
 	public boolean deletePizza(String codeUpDate) throws DeletePizzaException {

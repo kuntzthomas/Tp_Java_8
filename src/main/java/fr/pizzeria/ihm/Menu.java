@@ -5,6 +5,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.pizzeria.dao.PizzaDaoMemoire;
 
 /**
@@ -15,27 +18,28 @@ public class Menu {
 
 	static Scanner questionUser = new Scanner(System.in).useLocale(Locale.US);
 	static Map<Integer, OptionMenu> optionMenu = new HashMap<Integer, OptionMenu>();
-	
+	private static final Logger LOG = LoggerFactory.getLogger(Menu.class);
+
 	public Menu() {
 
 		optionMenu.put(0, new ListerPizzasOptionMenu());
 		optionMenu.put(1, new AjouterPizzaOptionMenu());
 		optionMenu.put(2, new ModifierPizzaOptionMenu());
 		optionMenu.put(3, new SupprimerPizzaOptionMenu());
-		
+
 	}
 
 	/**
-	 *  Affichage de la liste des pizzas
+	 * Affichage de la liste des pizzas
 	 */
 	public void afficher() {
 
-		System.out.println("***** Pizzeria Administration *****");
+		LOG.info("***** Pizzeria Administration *****");
 
 		for (int i = 0; i < optionMenu.size(); i++) {
-			System.out.println((optionMenu.get(i)).getLibelle());
+			LOG.info((optionMenu.get(i)).getLibelle());
 		}
-		System.out.println("99. Sortie.");
+		LOG.info("99. Sortie.");
 	}
 
 	/**
@@ -46,7 +50,7 @@ public class Menu {
 	public void manage() throws Exception {
 
 		PizzaDaoMemoire dao = new PizzaDaoMemoire();
-		
+
 		int choixMenu = 0;
 
 		do {
@@ -57,7 +61,7 @@ public class Menu {
 			switch (choixMenu) {
 
 			case 1:
-				
+
 				optionMenu.get(0).execute(dao);
 				break;
 
@@ -78,11 +82,11 @@ public class Menu {
 				break;
 
 			case 99:
-				System.out.println("Aurevoir");
+				LOG.info("Aurevoir");
 				break;
 
 			default:
-				System.out.println("Veuillez saisir un numero de menu valide");
+				LOG.info("Veuillez saisir un numero de menu valide");
 			}
 
 		} while (choixMenu != 99);

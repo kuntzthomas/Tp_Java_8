@@ -48,12 +48,6 @@ public class Pizza {
 		this.categoriePizza = categoriePizza;
 	}
 
-	public String toString(String code, String nom, double prix, CategoriePizza categoriePizza) {
-
-		String str = this.code + " -> " + this.nom + " (" + this.prix + ") " + this.categoriePizza;
-		return str;
-	}
-
 	public int getId() {
 		return id;
 	}
