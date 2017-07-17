@@ -20,7 +20,6 @@ import fr.pizzeria.model.Pizza;
 public class AjouterPizzaOptionMenu extends OptionMenu {
 
 	private static final Logger LOG = LoggerFactory.getLogger(AjouterPizzaOptionMenu.class);
-
 	Scanner questionUser = new Scanner(System.in).useLocale(Locale.US);
 
 	/*
@@ -66,9 +65,11 @@ public class AjouterPizzaOptionMenu extends OptionMenu {
 				String categ = categories.name();
 				LOG.info(categ);
 			}
+
 		}
 
 		Pizza pizza = new Pizza(code, nom, prix, CategoriePizza.valueOf(categoriePizza));
+
 		try {
 			dao.saveNewPizza(pizza);
 		} catch (Exception e) {

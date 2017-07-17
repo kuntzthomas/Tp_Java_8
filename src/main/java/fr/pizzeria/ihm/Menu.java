@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.pizzeria.dao.PizzaDaoMemoire;
+import fr.pizzeria.exception.StockageException;
 
 /**
  * @author Thomas
@@ -17,7 +18,7 @@ import fr.pizzeria.dao.PizzaDaoMemoire;
 public class Menu {
 
 	static Scanner questionUser = new Scanner(System.in).useLocale(Locale.US);
-	static Map<Integer, OptionMenu> optionMenu = new HashMap<Integer, OptionMenu>();
+	static Map<Integer, OptionMenu> optionMenu = new HashMap<>();
 	private static final Logger LOG = LoggerFactory.getLogger(Menu.class);
 
 	public Menu() {
@@ -37,7 +38,8 @@ public class Menu {
 		LOG.info("***** Pizzeria Administration *****");
 
 		for (int i = 0; i < optionMenu.size(); i++) {
-			LOG.info((optionMenu.get(i)).getLibelle());
+			String menu = optionMenu.get(i).getLibelle();
+			LOG.info(menu);
 		}
 		LOG.info("99. Sortie.");
 	}
@@ -47,7 +49,7 @@ public class Menu {
 	 * 
 	 * @throws Exception
 	 */
-	public void manage() throws Exception {
+	public void manage() throws StockageException {
 
 		PizzaDaoMemoire dao = new PizzaDaoMemoire();
 

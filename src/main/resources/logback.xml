@@ -15,13 +15,12 @@
 		<append>true</append>
 		<immediateFlush>true</immediateFlush>
 		<encoder>
-			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} -
-				%msg%n</pattern>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
 		</encoder>
 	</appender>
 
 	<!-- politique de log pour les classes du package dev.console -->
-	<logger name="dev.console" level="INFO">
+	<logger name="fr.pizzeria.ihm" level="INFO">
 		<appender-ref ref="STDOUT" />
 	</logger>
 

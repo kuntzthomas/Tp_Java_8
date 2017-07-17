@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.pizzeria.dao.IPizzaDao;
+import fr.pizzeria.exception.StockageException;
 import fr.pizzeria.exception.UpdatePizzaException;
 import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
@@ -24,10 +25,11 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 	}
 
 	@Override
-	public boolean execute(IPizzaDao dao) throws Exception {
+	public boolean execute(IPizzaDao dao) throws StockageException {
 
 		LOG.info("Veuillez saisir le code");
 		LOG.info("(99 pour abandonner)");
+
 		String codePizza = null;
 		boolean codeTrouve = false;
 
@@ -42,7 +44,7 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 			}
 		} while (!codeTrouve);
 
-		if (!codePizza.equals("99")) {
+		if (!"99".equals(codePizza)) {
 
 			LOG.info("Veuillez saisir le nouveau code");
 			String code = questionUser.next();
@@ -74,11 +76,11 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 
 			try {
 				dao.updatePizza(codePizza, pizza);
+				LOG.info("Pizza modifiée");
 			} catch (Exception e) {
 				LOG.debug(e.getMessage());
 			}
 
-			LOG.info("Pizza modifiée");
 		}
 		return false;
 	}

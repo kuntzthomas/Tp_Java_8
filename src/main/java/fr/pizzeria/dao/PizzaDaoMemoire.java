@@ -18,7 +18,7 @@ import fr.pizzeria.model.Pizza;
  */
 public class PizzaDaoMemoire implements IPizzaDao {
 
-	List<Pizza> listePizza = new ArrayList<Pizza>();
+	List<Pizza> listePizza = new ArrayList<>();
 	private static final Logger LOG = LoggerFactory.getLogger(PizzaDaoMemoire.class);
 
 	public PizzaDaoMemoire() {

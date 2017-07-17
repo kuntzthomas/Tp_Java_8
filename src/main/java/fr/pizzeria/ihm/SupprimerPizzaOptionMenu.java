@@ -53,7 +53,7 @@ public class SupprimerPizzaOptionMenu extends OptionMenu {
 			}
 		} while (!codeTrouve);
 
-		if (!codePizza.equals("99")) {
+		if (!"99".equals(codePizza)) {
 
 			try {
 				dao.deletePizza(codePizza);

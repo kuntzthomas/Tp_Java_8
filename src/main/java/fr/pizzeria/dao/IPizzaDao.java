@@ -4,6 +4,7 @@ import java.util.List;
 
 import fr.pizzeria.exception.DeletePizzaException;
 import fr.pizzeria.exception.SavePizzaException;
+import fr.pizzeria.exception.StockageException;
 import fr.pizzeria.exception.UpdatePizzaException;
 import fr.pizzeria.model.Pizza;
 
@@ -41,5 +42,5 @@ public interface IPizzaDao {
 	 * @param codePizza
 	 * @throws Exception
 	 */
-	void verifierExistence(String codePizza) throws Exception;
+	void verifierExistence(String codePizza) throws StockageException;
 }
