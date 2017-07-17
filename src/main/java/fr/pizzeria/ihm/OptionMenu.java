@@ -21,5 +21,5 @@ public abstract class OptionMenu {
 	 * @throws Exception
 	 */
 	public abstract boolean execute(IPizzaDao dao) throws Exception;
-	
+
 }

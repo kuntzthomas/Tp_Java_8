@@ -55,7 +55,8 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 
 			int i = 0;
 			for (CategoriePizza categories : CategoriePizza.values()) {
-				LOG.info("{} {}", i, categories.name());
+				String categ = categories.name();
+				LOG.info("{} {}", i, categ);
 				i++;
 			}
 
@@ -63,8 +64,10 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 			String categoriePizza = questionUser.next();
 
 			for (CategoriePizza categories : CategoriePizza.values()) {
-				if (LevenshteinDistance.getDefaultInstance().apply(categories.name(), categoriePizza) <= 2)
-					LOG.info(categories.name());
+				if (LevenshteinDistance.getDefaultInstance().apply(categories.name(), categoriePizza) <= 2) {
+					String categ = categories.name();
+					LOG.info(categ);
+				}
 			}
 
 			Pizza pizza = new Pizza(code, nom, prix, CategoriePizza.valueOf(categoriePizza));
