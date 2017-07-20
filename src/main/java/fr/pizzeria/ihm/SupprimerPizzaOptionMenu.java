@@ -48,7 +48,8 @@ public class SupprimerPizzaOptionMenu extends OptionMenu {
 				dao.verifierExistence(codePizza);
 				codeTrouve = true;
 			} catch (Exception e) {
-				LOG.debug(e.getMessage());
+				LOG.info(e.getMessage());
+				LOG.debug("Error", e);
 				codeTrouve = false;
 			}
 		} while (!codeTrouve);
@@ -58,7 +59,8 @@ public class SupprimerPizzaOptionMenu extends OptionMenu {
 			try {
 				dao.deletePizza(codePizza);
 			} catch (Exception e) {
-				LOG.debug(e.getMessage());
+				LOG.info(e.getMessage());
+				LOG.debug("Error", e);
 			}
 
 			LOG.info("Pizza supprimée");

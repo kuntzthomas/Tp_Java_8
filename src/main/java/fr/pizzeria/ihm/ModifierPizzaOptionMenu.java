@@ -40,6 +40,7 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 				codeTrouve = true;
 			} catch (UpdatePizzaException e) {
 				LOG.info(e.getMessage());
+				LOG.debug("Error", e);
 				codeTrouve = false;
 			}
 		} while (!codeTrouve);
@@ -78,7 +79,8 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 				dao.updatePizza(codePizza, pizza);
 				LOG.info("Pizza modifiée");
 			} catch (Exception e) {
-				LOG.debug(e.getMessage());
+				LOG.info(e.getMessage());
+				LOG.debug("Error", e);
 			}
 
 		}

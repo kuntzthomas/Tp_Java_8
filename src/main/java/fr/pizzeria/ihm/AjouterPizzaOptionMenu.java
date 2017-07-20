@@ -73,8 +73,10 @@ public class AjouterPizzaOptionMenu extends OptionMenu {
 		try {
 			dao.saveNewPizza(pizza);
 		} catch (Exception e) {
-			LOG.debug(e.getMessage());
+			LOG.info(e.getMessage());
+			LOG.debug("Error", e);
 		}
+		LOG.info("Pizza ajoutée");
 
 		return true;
 	}

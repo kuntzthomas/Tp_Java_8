@@ -52,7 +52,6 @@ public class PizzaDaoMemoire implements IPizzaDao {
 	public boolean saveNewPizza(Pizza pizza) throws SavePizzaException {
 
 		listePizza.add(new Pizza(pizza.getCode(), pizza.getNom(), pizza.getPrix(), pizza.getCategoriePizza()));
-		LOG.info("Pizza ajoutée");
 
 		return false;
 	}
@@ -93,6 +92,7 @@ public class PizzaDaoMemoire implements IPizzaDao {
 			if (findAllPizzas().get(i) != null && codePizza.equals(findAllPizzas().get(i).getCode())) {
 
 				trouve = true;
+
 			}
 		}
 		if (!trouve) {
