@@ -6,10 +6,10 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.pizzeria.exception.DeletePizzaException;
-import fr.pizzeria.exception.SavePizzaException;
-import fr.pizzeria.exception.StockageException;
-import fr.pizzeria.exception.UpdatePizzaException;
+import fr.pizzeria.dao.exception.DeletePizzaException;
+import fr.pizzeria.dao.exception.SavePizzaException;
+import fr.pizzeria.dao.exception.StockageException;
+import fr.pizzeria.dao.exception.UpdatePizzaException;
 import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
@@ -19,10 +19,15 @@ import fr.pizzeria.model.Pizza;
  */
 public class PizzaDaoMemoire implements IPizzaDao {
 
-	List<Pizza> listePizza = new ArrayList<>();
+	private List<Pizza> listePizza = new ArrayList<>();
 	private static final Logger LOG = LoggerFactory.getLogger(PizzaDaoMemoire.class);
 
-	public PizzaDaoMemoire() {
+	/**
+	 * Initalise les pizzas
+	 */
+	public void initPizza() {
+
+		LOG.info("Initialisation des pizzas");
 
 		listePizza.add(new Pizza("PEP", "Pépéroni", 12.50, CategoriePizza.VIANDE));
 		listePizza.add(new Pizza("MAR", "Margherita", 14.00, CategoriePizza.VIANDE));
@@ -33,57 +38,52 @@ public class PizzaDaoMemoire implements IPizzaDao {
 		listePizza.add(new Pizza("ORI", "L'orientale", 13.50, CategoriePizza.VIANDE));
 		listePizza.add(new Pizza("IND", "L'indienne", 14.00, CategoriePizza.VIANDE));
 
+		LOG.info("pizzas initialissé");
 	}
 
 	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fr.pizzeria.dao.IPizzaDao#findAllPizzas()
+	 * {@link IPizzaDao}
 	 */
 	public List<Pizza> findAllPizzas() {
 
-		return listePizza;
+		LOG.info("Récupératin des pizzas");
+		return new ArrayList<>(listePizza);
 	}
 
 	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fr.pizzeria.dao.IPizzaDao#saveNewPizza(fr.pizzeria.model.Pizza)
+	 * {@link IPizzaDao}
 	 */
-	public boolean saveNewPizza(Pizza pizza) throws SavePizzaException {
+	public void saveNewPizza(Pizza pizza) throws SavePizzaException {
 
-		listePizza.add(new Pizza(pizza.getCode(), pizza.getNom(), pizza.getPrix(), pizza.getCategoriePizza()));
+		listePizza.stream().filter(p -> p.getCode().equals(pizza.getCode())).findAny()
+				.orElseThrow(() -> new SavePizzaException("Erreur : le code e la pizza existe déjà. Pizza non sauvée"));
+		listePizza.add(pizza);
 
-		return false;
 	}
 
 	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fr.pizzeria.dao.IPizzaDao#updatePizza(java.lang.String,
-	 * fr.pizzeria.model.Pizza)
+	 * {@link IPizzaDao}
 	 */
-	public boolean updatePizza(String codeUpDate, Pizza pizza) throws UpdatePizzaException {
+	public void updatePizza(String codeUpdate, Pizza pizza) throws UpdatePizzaException {
 
-		for (int i = 0; i < listePizza.size(); i++) {
+		for (Pizza p : listePizza) {
 
-			if (listePizza.get(i) != null && codeUpDate.equals(listePizza.get(i).getCode())) {
+			if (p.getCode().equals(codeUpdate)) {
 
-				listePizza.get(i).setCode(pizza.getCode());
-				listePizza.get(i).setNom(pizza.getNom());
-				listePizza.get(i).setPrix(pizza.getPrix());
-				listePizza.get(i).setCategoriePizza(pizza.getCategoriePizza());
+				listePizza.get(p.getId()).setCode(pizza.getCode());
+
+				listePizza.get(p.getId()).setNom(pizza.getNom());
+
+				listePizza.get(p.getId()).setPrix(pizza.getPrix());
+
+				listePizza.get(p.getId()).setCategoriePizza(pizza.getCategoriePizza());
 
 			}
 		}
-		LOG.info("Pizza mise à jour");
-		return false;
 	}
 
 	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fr.pizzeria.dao.IPizzaDao#verifierExistence(java.lang.String)
+	 * {@link IPizzaDao}
 	 */
 	public boolean verifierExistence(String codePizza) throws StockageException {
 
@@ -104,17 +104,16 @@ public class PizzaDaoMemoire implements IPizzaDao {
 	 * 
 	 * @see fr.pizzeria.dao.IPizzaDao#deletePizza(java.lang.String)
 	 */
-	public boolean deletePizza(String codeUpDate) throws DeletePizzaException {
+	public void deletePizza(String codeUpdate) throws DeletePizzaException {
 
 		for (int i = 0; i < listePizza.size(); i++) {
 
-			if (listePizza.get(i) != null && codeUpDate.equals(listePizza.get(i).getCode())) {
+			if (listePizza.get(i) != null && codeUpdate.equals(listePizza.get(i).getCode())) {
 
 				listePizza.remove(i);
 				break;
 			}
 		}
-		return false;
 	}
 
 }

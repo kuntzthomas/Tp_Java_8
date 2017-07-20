@@ -1,6 +1,5 @@
-package fr.pizzeria.ihm;
+package fr.pizzeria.ihm.menu.option;
 
-import java.util.Locale;
 import java.util.Scanner;
 
 import org.apache.commons.text.similarity.LevenshteinDistance;
@@ -8,44 +7,49 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.pizzeria.dao.IPizzaDao;
-import fr.pizzeria.exception.StockageException;
+import fr.pizzeria.dao.exception.StockageException;
 import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
 public class ModifierPizzaOptionMenu extends OptionMenu {
 
-	String libelle = "3. Mettre à jour une pizza";
-	Scanner questionUser = new Scanner(System.in).useLocale(Locale.US);
+	Scanner scanner;
 	private static final Logger LOG = LoggerFactory.getLogger(ModifierPizzaOptionMenu.class);
+	private IPizzaDao dao;
+
+	public ModifierPizzaOptionMenu(IPizzaDao dao) {
+
+		this.dao = dao;
+	}
 
 	@Override
 	public String getLibelle() {
 
-		return libelle;
+		return "Mettre à jour une pizza";
 	}
 
 	@Override
-	public boolean execute(IPizzaDao dao) throws StockageException {
+	public boolean execute() throws StockageException {
 
 		LOG.info("Veuillez saisir le code");
 		LOG.info("(99 pour abandonner)");
 
 		String codePizza = null;
-		codePizza = questionUser.next();
+		codePizza = scanner.next();
 		while (!dao.verifierExistence(codePizza)) {
-			codePizza = questionUser.next();
+			codePizza = scanner.next();
 		}
 
 		if (!"99".equals(codePizza)) {
 
 			LOG.info("Veuillez saisir le nouveau code");
-			String code = questionUser.next();
+			String code = scanner.next();
 
 			LOG.info("Veuillez saisir le nom (sans espace)");
-			String nom = questionUser.next();
+			String nom = scanner.next();
 
 			LOG.info("Veuillez saisir le prix");
-			double prix = questionUser.nextDouble();
+			double prix = scanner.nextDouble();
 
 			int i = 0;
 			for (CategoriePizza categories : CategoriePizza.values()) {
@@ -55,7 +59,7 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 			}
 
 			LOG.info("Veuillez saisir la catégorie de la pizza");
-			String categoriePizza = questionUser.next();
+			String categoriePizza = scanner.next();
 
 			for (CategoriePizza categories : CategoriePizza.values()) {
 				if (LevenshteinDistance.getDefaultInstance().apply(categories.name(), categoriePizza) <= 2) {

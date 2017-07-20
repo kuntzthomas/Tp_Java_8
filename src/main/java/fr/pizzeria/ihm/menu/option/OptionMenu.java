@@ -1,7 +1,6 @@
-package fr.pizzeria.ihm;
+package fr.pizzeria.ihm.menu.option;
 
-import fr.pizzeria.dao.IPizzaDao;
-import fr.pizzeria.exception.StockageException;
+import fr.pizzeria.dao.exception.StockageException;
 
 /**
  * @author Thomas
@@ -22,6 +21,6 @@ public abstract class OptionMenu {
 	 * @throws StockageException
 	 * @throws Exception
 	 */
-	public abstract boolean execute(IPizzaDao dao) throws StockageException;
+	public abstract boolean execute() throws StockageException;
 
 }

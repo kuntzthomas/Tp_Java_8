@@ -1,4 +1,4 @@
-package fr.pizzeria.ihm;
+package fr.pizzeria.ihm.menu.option;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +15,13 @@ public class ListerPizzasOptionMenu extends OptionMenu {
 
 	private static final Logger LOG = LoggerFactory.getLogger(ListerPizzasOptionMenu.class);
 
+	private IPizzaDao dao;
+
+	public ListerPizzasOptionMenu(IPizzaDao dao) {
+
+		this.dao = dao;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -22,7 +29,7 @@ public class ListerPizzasOptionMenu extends OptionMenu {
 	 */
 	public String getLibelle() {
 
-		return "1. Liste des Pizzas";
+		return "Liste des Pizzas";
 	}
 
 	/*
@@ -31,7 +38,7 @@ public class ListerPizzasOptionMenu extends OptionMenu {
 	 * @see fr.pizzeria.ihm.OptionMenu#execute(fr.pizzeria.dao.IPizzaDao)
 	 */
 	@Override
-	public boolean execute(IPizzaDao dao) {
+	public boolean execute() {
 
 		for (int i = 0; i < dao.findAllPizzas().size(); i++) {
 

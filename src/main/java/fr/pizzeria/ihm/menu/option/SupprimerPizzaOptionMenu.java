@@ -1,13 +1,12 @@
-package fr.pizzeria.ihm;
+package fr.pizzeria.ihm.menu.option;
 
-import java.util.Locale;
 import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.pizzeria.dao.IPizzaDao;
-import fr.pizzeria.exception.StockageException;
+import fr.pizzeria.dao.exception.StockageException;
 
 /**
  * @author Thomas
@@ -17,8 +16,14 @@ import fr.pizzeria.exception.StockageException;
  */
 public class SupprimerPizzaOptionMenu extends OptionMenu {
 
-	Scanner questionUser = new Scanner(System.in).useLocale(Locale.US);
+	Scanner scanner;
 	private static final Logger LOG = LoggerFactory.getLogger(SupprimerPizzaOptionMenu.class);
+	private IPizzaDao dao;
+
+	public SupprimerPizzaOptionMenu(IPizzaDao dao) {
+
+		this.dao = dao;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -28,7 +33,7 @@ public class SupprimerPizzaOptionMenu extends OptionMenu {
 	@Override
 	public String getLibelle() {
 
-		return "4. Supprimer une pizza";
+		return "Supprimer une pizza";
 	}
 
 	/*
@@ -37,14 +42,14 @@ public class SupprimerPizzaOptionMenu extends OptionMenu {
 	 * @see fr.pizzeria.ihm.OptionMenu#execute(fr.pizzeria.dao.IPizzaDao)
 	 */
 	@Override
-	public boolean execute(IPizzaDao dao) throws StockageException {
+	public boolean execute() throws StockageException {
 
 		LOG.info("Veuillez saisir le code");
 
 		String codePizza = null;
-		codePizza = questionUser.next();
+		codePizza = scanner.next();
 		while (!dao.verifierExistence(codePizza)) {
-			codePizza = questionUser.next();
+			codePizza = scanner.next();
 		}
 
 		if (!"99".equals(codePizza)) {

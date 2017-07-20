@@ -1,6 +1,5 @@
-package fr.pizzeria.ihm;
+package fr.pizzeria.ihm.menu.option;
 
-import java.util.Locale;
 import java.util.Scanner;
 
 import org.apache.commons.text.similarity.LevenshteinDistance;
@@ -20,7 +19,13 @@ import fr.pizzeria.model.Pizza;
 public class AjouterPizzaOptionMenu extends OptionMenu {
 
 	private static final Logger LOG = LoggerFactory.getLogger(AjouterPizzaOptionMenu.class);
-	Scanner questionUser = new Scanner(System.in).useLocale(Locale.US);
+	Scanner scanner;
+	private IPizzaDao dao;
+
+	public AjouterPizzaOptionMenu(IPizzaDao dao) {
+
+		this.dao = dao;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -30,7 +35,7 @@ public class AjouterPizzaOptionMenu extends OptionMenu {
 	@Override
 	public String getLibelle() {
 
-		return "2. Ajouter une nouvelle pizza";
+		return "Ajouter une nouvelle pizza";
 	}
 
 	/*
@@ -39,16 +44,16 @@ public class AjouterPizzaOptionMenu extends OptionMenu {
 	 * @see fr.pizzeria.ihm.OptionMenu#execute(fr.pizzeria.dao.IPizzaDao)
 	 */
 	@Override
-	public boolean execute(IPizzaDao dao) {
+	public boolean execute() {
 
 		LOG.info("Veuillez saisir le code de la pizza");
-		String code = questionUser.next();
+		String code = scanner.next();
 
 		LOG.info("Veuillez saisir le nom (sans espace)");
-		String nom = questionUser.next();
+		String nom = scanner.next();
 
 		LOG.info("Veuillez saisir le prix");
-		double prix = questionUser.nextDouble();
+		double prix = scanner.nextDouble();
 
 		int i = 0;
 		for (CategoriePizza categories : CategoriePizza.values()) {
@@ -58,7 +63,7 @@ public class AjouterPizzaOptionMenu extends OptionMenu {
 		}
 
 		LOG.info("Veuillez saisir la catégorie de la pizza");
-		String categoriePizza = questionUser.next();
+		String categoriePizza = scanner.next();
 
 		for (CategoriePizza categories : CategoriePizza.values()) {
 			if (LevenshteinDistance.getDefaultInstance().apply(categories.name(), categoriePizza) <= 2) {
