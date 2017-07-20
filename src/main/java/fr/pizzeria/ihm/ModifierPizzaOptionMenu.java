@@ -9,19 +9,19 @@ import org.slf4j.LoggerFactory;
 
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.exception.StockageException;
-import fr.pizzeria.exception.UpdatePizzaException;
 import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
 public class ModifierPizzaOptionMenu extends OptionMenu {
 
+	String libelle = "3. Mettre à jour une pizza";
 	Scanner questionUser = new Scanner(System.in).useLocale(Locale.US);
 	private static final Logger LOG = LoggerFactory.getLogger(ModifierPizzaOptionMenu.class);
 
 	@Override
 	public String getLibelle() {
 
-		return "3. Mettre à jour une pizza";
+		return libelle;
 	}
 
 	@Override
@@ -31,19 +31,10 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 		LOG.info("(99 pour abandonner)");
 
 		String codePizza = null;
-		boolean codeTrouve = false;
-
-		do {
+		codePizza = questionUser.next();
+		while (!dao.verifierExistence(codePizza)) {
 			codePizza = questionUser.next();
-			try {
-				dao.verifierExistence(codePizza);
-				codeTrouve = true;
-			} catch (UpdatePizzaException e) {
-				LOG.info(e.getMessage());
-				LOG.debug("Error", e);
-				codeTrouve = false;
-			}
-		} while (!codeTrouve);
+		}
 
 		if (!"99".equals(codePizza)) {
 

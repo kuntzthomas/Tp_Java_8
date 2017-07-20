@@ -40,7 +40,8 @@ public interface IPizzaDao {
 
 	/**
 	 * @param codePizza
+	 * @return
 	 * @throws Exception
 	 */
-	void verifierExistence(String codePizza) throws StockageException;
+	boolean verifierExistence(String codePizza) throws StockageException;
 }

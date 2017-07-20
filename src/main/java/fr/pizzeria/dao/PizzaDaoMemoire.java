@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import fr.pizzeria.exception.DeletePizzaException;
 import fr.pizzeria.exception.SavePizzaException;
+import fr.pizzeria.exception.StockageException;
 import fr.pizzeria.exception.UpdatePizzaException;
 import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
@@ -84,20 +85,17 @@ public class PizzaDaoMemoire implements IPizzaDao {
 	 * 
 	 * @see fr.pizzeria.dao.IPizzaDao#verifierExistence(java.lang.String)
 	 */
-	public void verifierExistence(String codePizza) throws UpdatePizzaException {
+	public boolean verifierExistence(String codePizza) throws StockageException {
 
-		boolean trouve = false;
 		for (int i = 0; i < findAllPizzas().size(); i++) {
 
-			if (findAllPizzas().get(i) != null && codePizza.equals(findAllPizzas().get(i).getCode())) {
+			if (codePizza.equals(findAllPizzas().get(i).getCode())) {
 
-				trouve = true;
+				return true;
 
 			}
 		}
-		if (!trouve) {
-			throw new UpdatePizzaException("Le code " + codePizza + " n'existe pas");
-		}
+		return false;
 
 	}
 

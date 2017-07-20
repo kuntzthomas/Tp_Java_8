@@ -122,9 +122,7 @@ public class Pizza {
 				return false;
 		} else if (!nom.equals(other.nom))
 			return false;
-		if (Double.doubleToLongBits(prix) != Double.doubleToLongBits(other.prix))
-			return false;
-		return true;
+		return Double.doubleToLongBits(prix) == Double.doubleToLongBits(other.prix);
 	}
 
 }

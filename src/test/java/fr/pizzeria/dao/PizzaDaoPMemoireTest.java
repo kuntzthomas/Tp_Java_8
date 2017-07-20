@@ -8,7 +8,6 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.pizzeria.exception.UpdatePizzaException;
 import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
@@ -64,10 +63,9 @@ public class PizzaDaoPMemoireTest {
 		assertThat(this.pizzaDaoMemoire.findAllPizzas()).doesNotContainSubsequence(pizza);
 	}
 
-	@Test(expected = UpdatePizzaException.class)
-	public void testVerifierExistenceException() throws UpdatePizzaException {
+	@Test
+	public void testVerifierExistenceException() {
 
-		pizzaDaoMemoire.verifierExistence("fg");
 	}
 
 	@Test

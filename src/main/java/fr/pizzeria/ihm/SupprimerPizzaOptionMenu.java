@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.pizzeria.dao.IPizzaDao;
+import fr.pizzeria.exception.StockageException;
 
 /**
  * @author Thomas
@@ -36,23 +37,15 @@ public class SupprimerPizzaOptionMenu extends OptionMenu {
 	 * @see fr.pizzeria.ihm.OptionMenu#execute(fr.pizzeria.dao.IPizzaDao)
 	 */
 	@Override
-	public boolean execute(IPizzaDao dao) {
+	public boolean execute(IPizzaDao dao) throws StockageException {
 
 		LOG.info("Veuillez saisir le code");
 
 		String codePizza = null;
-		boolean codeTrouve = false;
-		do {
+		codePizza = questionUser.next();
+		while (!dao.verifierExistence(codePizza)) {
 			codePizza = questionUser.next();
-			try {
-				dao.verifierExistence(codePizza);
-				codeTrouve = true;
-			} catch (Exception e) {
-				LOG.info(e.getMessage());
-				LOG.debug("Error", e);
-				codeTrouve = false;
-			}
-		} while (!codeTrouve);
+		}
 
 		if (!"99".equals(codePizza)) {
 
