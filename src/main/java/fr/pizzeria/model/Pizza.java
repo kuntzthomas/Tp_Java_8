@@ -6,7 +6,7 @@ package fr.pizzeria.model;
  */
 public class Pizza {
 
-	int id;
+	Integer id;
 	String code;
 	String nom;
 	double prix;

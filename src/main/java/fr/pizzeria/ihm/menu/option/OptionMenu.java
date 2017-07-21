@@ -21,6 +21,6 @@ public abstract class OptionMenu {
 	 * @throws StockageException
 	 * @throws Exception
 	 */
-	public abstract boolean execute() throws StockageException;
+	public abstract boolean execute() throws StockageException, Exception;
 
 }

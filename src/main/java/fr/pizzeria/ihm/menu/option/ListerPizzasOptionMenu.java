@@ -38,7 +38,7 @@ public class ListerPizzasOptionMenu extends OptionMenu {
 	 * @see fr.pizzeria.ihm.OptionMenu#execute(fr.pizzeria.dao.IPizzaDao)
 	 */
 	@Override
-	public boolean execute() {
+	public boolean execute() throws Exception {
 
 		for (int i = 0; i < dao.findAllPizzas().size(); i++) {
 

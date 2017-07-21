@@ -3,12 +3,15 @@ package fr.pizzeria.ihm;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.contrib.java.lang.system.TextFromStandardInputStream.emptyStandardInputStream;
 
+import java.util.Scanner;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.contrib.java.lang.system.SystemOutRule;
 import org.junit.contrib.java.lang.system.TextFromStandardInputStream;
 
+import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.ihm.menu.Menu;
 
 public class MenuTest {
@@ -19,6 +22,8 @@ public class MenuTest {
 	public final TextFromStandardInputStream systemInMock = emptyStandardInputStream();
 
 	private Menu menu;
+	private IPizzaDao dao;
+	private Scanner scanner;
 
 	@Before
 	public void setUp() throws Exception {
@@ -33,6 +38,7 @@ public class MenuTest {
 	@Test
 	public void TestAfficher() {
 
+		menu = new Menu(dao, scanner, "***** Pizzeria Administration *****");
 		this.menu.afficher();
 
 		String logConsole = systemOutRule.getLog();

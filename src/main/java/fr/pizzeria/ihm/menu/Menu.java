@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.pizzeria.dao.IPizzaDao;
-import fr.pizzeria.dao.exception.StockageException;
 import fr.pizzeria.ihm.menu.option.AjouterPizzaOptionMenu;
 import fr.pizzeria.ihm.menu.option.ListerPizzasOptionMenu;
 import fr.pizzeria.ihm.menu.option.ModifierPizzaOptionMenu;
@@ -52,6 +51,7 @@ public class Menu {
 	 */
 	public void afficher() {
 
+		LOG.info(titre);
 		optionMenu.forEach((numero, action) -> LOG.info(numero + ". " + action.getLibelle()));
 	}
 
@@ -60,7 +60,7 @@ public class Menu {
 	 * 
 	 * @throws Exception
 	 */
-	public void manage() throws StockageException {
+	public void manage() throws Exception {
 
 		int choixMenu = 0;
 

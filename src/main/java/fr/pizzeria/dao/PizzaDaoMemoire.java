@@ -45,8 +45,8 @@ public class PizzaDaoMemoire implements IPizzaDao {
 	 * {@link IPizzaDao}
 	 */
 	public List<Pizza> findAllPizzas() {
-
-		LOG.info("Récupératin des pizzas");
+		// TODO
+		LOG.info("Récupération des pizzas");
 		return new ArrayList<>(listePizza);
 	}
 
@@ -54,8 +54,8 @@ public class PizzaDaoMemoire implements IPizzaDao {
 	 * {@link IPizzaDao}
 	 */
 	public void saveNewPizza(Pizza pizza) throws SavePizzaException {
-
-		listePizza.stream().filter(p -> p.getCode().equals(pizza.getCode())).findAny()
+		// TODO
+		listePizza.stream().filter(list -> list.getCode().equals(pizza.getCode())).findAny()
 				.orElseThrow(() -> new SavePizzaException("Erreur : le code e la pizza existe déjà. Pizza non sauvée"));
 		listePizza.add(pizza);
 
@@ -65,7 +65,7 @@ public class PizzaDaoMemoire implements IPizzaDao {
 	 * {@link IPizzaDao}
 	 */
 	public void updatePizza(String codeUpdate, Pizza pizza) throws UpdatePizzaException {
-
+		// TODO
 		for (Pizza p : listePizza) {
 
 			if (p.getCode().equals(codeUpdate)) {

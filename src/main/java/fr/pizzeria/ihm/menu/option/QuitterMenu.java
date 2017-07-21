@@ -19,7 +19,7 @@ public class QuitterMenu extends OptionMenu {
 
 	@Override
 	public String getLibelle() {
-		return "Sortie";
+		return "Sortie.";
 	}
 
 	@Override
