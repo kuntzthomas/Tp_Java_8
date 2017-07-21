@@ -42,7 +42,7 @@ public class PizzaDaoDabtabaseTest {
 			Class.forName(H2_DRIVER);
 			connection = DriverManager.getConnection(DB_URL, USER, PASS);
 		} catch (ClassNotFoundException e) {
-			LOG.debug("ERROR: Class not found: " + e.getMessage());
+			LOG.debug("ERROR: Class not found: ", e);
 		}
 	}
 
@@ -103,14 +103,13 @@ public class PizzaDaoDabtabaseTest {
 
 	}
 
-	@Test
 	public void testUpdatePizza() throws UpdatePizzaException {
+		// TODO
 
 	}
 
-	@Test
 	public void testDeletePizza() throws DeletePizzaException {
-
+		// TODO
 	}
 
 	// @Test

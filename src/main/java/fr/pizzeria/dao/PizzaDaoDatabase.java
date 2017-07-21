@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,15 +48,21 @@ public class PizzaDaoDatabase implements IPizzaDao {
 	public List<Pizza> findAllPizzas() throws Exception {
 		listePizza = new ArrayList<>();
 		ResultSet result = statement.executeQuery("SELECT * FROM PIZZA");
-		LOG.info("requete effectuée");
-		while (result.next()) {
-			int id = result.getInt("id");
-			String code = result.getString("code");
-			String nom = result.getString("nom");
-			double prix = result.getDouble("prix");
-			int categoriePizza = result.getInt("categorie");
-			Pizza pizza = new Pizza(id, code, nom, prix, CategoriePizza.values()[categoriePizza]);
-			listePizza.add(pizza);
+		try {
+			LOG.info("requete effectuée");
+			while (result.next()) {
+				int id = result.getInt("id");
+				String code = result.getString("code");
+				String nom = result.getString("nom");
+				double prix = result.getDouble("prix");
+				int categoriePizza = result.getInt("categorie");
+				Pizza pizza = new Pizza(id, code, nom, prix, CategoriePizza.values()[categoriePizza]);
+				listePizza.add(pizza);
+			}
+		} catch (SQLException e) {
+			LOG.debug("Error recherche pizza", e);
+		} finally {
+			result.close();
 		}
 		LOG.info("Récupération des pizzas");
 		return listePizza;
@@ -63,17 +70,17 @@ public class PizzaDaoDatabase implements IPizzaDao {
 
 	@Override
 	public void saveNewPizza(Pizza pizza) throws SavePizzaException {
-
+		// TODO
 	}
 
 	@Override
 	public void updatePizza(String codePizza, Pizza pizza) throws UpdatePizzaException {
-
+		// TODO
 	}
 
 	@Override
 	public void deletePizza(String codePizza) throws DeletePizzaException {
-
+		// TODO
 	}
 
 	@Override
