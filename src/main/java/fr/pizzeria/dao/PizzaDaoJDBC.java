@@ -16,7 +16,6 @@ import fr.pizzeria.dao.exception.DeletePizzaException;
 import fr.pizzeria.dao.exception.SavePizzaException;
 import fr.pizzeria.dao.exception.StockageException;
 import fr.pizzeria.dao.exception.UpdatePizzaException;
-import fr.pizzeria.ihm.menu.option.ListerPizzasOptionMenu;
 import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
@@ -29,7 +28,7 @@ public class PizzaDaoJDBC implements IPizzaDao {
 	private static final String UPDATE_PIZZA = "Update Pizza Set Nom = ?, Prix = ?, Categorie = ? where code like ?";
 	private static final String DELETE_PIZZA = "DELETE FROM Pizza where code like ?";
 	private static final String FIND_PIZZA = "Select * from Pizza where code like ?";
-	private static final Logger LOG = LoggerFactory.getLogger(ListerPizzasOptionMenu.class);
+	private static final Logger LOG = LoggerFactory.getLogger(PizzaDaoJDBC.class);
 
 	private String url;
 	private String user;
@@ -49,7 +48,6 @@ public class PizzaDaoJDBC implements IPizzaDao {
 
 	}
 
-	@Override
 	public void initPizza() throws SQLException {
 
 		try (Connection connection = createConnection()) {
@@ -96,7 +94,7 @@ public class PizzaDaoJDBC implements IPizzaDao {
 		List<Pizza> listePizza = new ArrayList<>();
 		try (Connection connection = createConnection();
 				Statement statement = connection.createStatement();
-				ResultSet result = statement.executeQuery("SELECT * FROM PIZZA")) {
+				ResultSet result = statement.executeQuery(FIND_PIZZA)) {
 			while (result.next()) {
 				int id = result.getInt("id");
 				String code = result.getString("code");

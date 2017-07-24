@@ -1,19 +1,39 @@
 package fr.pizzeria.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+
 /**
  * @author Thomas
  *
  */
+@Entity
+@NamedQueries({ @NamedQuery(name = "pizza.findAll", query = "SELECT p FROM Pizza p"),
+		@NamedQuery(name = "pizza.findByCode", query = "select p from Pizza p where p.code=:codePizza") })
 public class Pizza {
 
+	@Id
+	@GeneratedValue
 	private Integer id;
+
 	private String code;
+
 	private String nom;
+
 	private Double prix;
+
+	@Column(name = "categorie")
+	@Enumerated(EnumType.STRING)
 	private CategoriePizza categoriePizza;
 
 	public Pizza() {
-
+		super();
 	}
 
 	/**

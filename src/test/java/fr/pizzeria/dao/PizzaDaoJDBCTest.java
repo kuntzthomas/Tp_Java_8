@@ -19,19 +19,16 @@ import fr.pizzeria.model.Pizza;
 
 public class PizzaDaoJDBCTest {
 
-	private static PizzaDaoJDBC pizzaDaoDatabase;
+	private static PizzaDaoJDBC pizzaDaoJDBC;
 	private static List<Pizza> listePizza;
 	private static Connection connection;
 
 	@BeforeClass
 	public static void intialisation() throws Exception {
 
-		pizzaDaoDatabase = new PizzaDaoJDBC("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1", "sa", "", "org.h2.Driver");
+		pizzaDaoJDBC = new PizzaDaoJDBC("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1", "sa", "", "org.h2.Driver");
 
-		// connection = pizzaDaoDatabase.createConnection();
-		// connection.createStatement();
-
-		pizzaDaoDatabase.initPizza();
+		pizzaDaoJDBC.initPizza();
 
 		listePizza = new ArrayList<>();
 
@@ -48,15 +45,15 @@ public class PizzaDaoJDBCTest {
 	@Test
 	public void testFindAllPizza() throws Exception {
 
-		assertThat(listePizza).containsAll(pizzaDaoDatabase.findAllPizzas());
+		assertThat(listePizza).containsAll(pizzaDaoJDBC.findAllPizzas());
 
 	}
 
 	@Test
 	public void testSaveNewPizza() throws Exception {
 
-		pizzaDaoDatabase.saveNewPizza(new Pizza("CAL", "Calzone", 12.5d, CategoriePizza.VIANDE));
-		connection = pizzaDaoDatabase.createConnection();
+		pizzaDaoJDBC.saveNewPizza(new Pizza("CAL", "Calzone", 12.5d, CategoriePizza.VIANDE));
+		connection = pizzaDaoJDBC.createConnection();
 		Statement statement = connection.createStatement();
 		ResultSet result = statement.executeQuery("Select * from Pizza");
 		while (result.next()) {
@@ -69,8 +66,8 @@ public class PizzaDaoJDBCTest {
 	@Test
 	public void testUpdatePizza() throws UpdatePizzaException, ClassNotFoundException, SQLException {
 
-		connection = pizzaDaoDatabase.createConnection();
-		pizzaDaoDatabase.updatePizza("SAV", new Pizza("VAS", "Vas", 9.0, CategoriePizza.VIANDE));
+		connection = pizzaDaoJDBC.createConnection();
+		pizzaDaoJDBC.updatePizza("SAV", new Pizza("VAS", "Vas", 9.0, CategoriePizza.VIANDE));
 		Statement statement = connection.createStatement();
 		ResultSet result = statement.executeQuery("Select * from Pizza where code like 'VAS';");
 		while (result.next()) {
@@ -82,8 +79,8 @@ public class PizzaDaoJDBCTest {
 
 	@Test
 	public void testDeletePizza() throws DeletePizzaException, ClassNotFoundException, SQLException {
-		connection = pizzaDaoDatabase.createConnection();
-		pizzaDaoDatabase.deletePizza("SAV");
+		connection = pizzaDaoJDBC.createConnection();
+		pizzaDaoJDBC.deletePizza("SAV");
 		Statement statement = connection.createStatement();
 		ResultSet result = statement.executeQuery("Select * from Pizza");
 		while (result.next()) {
