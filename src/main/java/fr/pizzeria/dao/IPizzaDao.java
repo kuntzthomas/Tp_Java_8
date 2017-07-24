@@ -15,9 +15,9 @@ import fr.pizzeria.model.Pizza;
  */
 public interface IPizzaDao {
 
-	void initPizza() throws Exception;
+	void initPizza() throws SQLException;
 
-	List<Pizza> findAllPizzas() throws Exception;
+	List<Pizza> findAllPizzas();
 
 	/**
 	 * @param pizza

@@ -50,7 +50,7 @@ public class PizzaDaoJDBC implements IPizzaDao {
 	}
 
 	@Override
-	public void initPizza() throws Exception {
+	public void initPizza() throws SQLException {
 
 		try (Connection connection = createConnection()) {
 
@@ -91,7 +91,7 @@ public class PizzaDaoJDBC implements IPizzaDao {
 	}
 
 	@Override
-	public List<Pizza> findAllPizzas() throws Exception {
+	public List<Pizza> findAllPizzas() {
 
 		List<Pizza> listePizza = new ArrayList<>();
 		try (Connection connection = createConnection();
@@ -160,9 +160,9 @@ public class PizzaDaoJDBC implements IPizzaDao {
 	public boolean verifierExistence(String codePizza) throws StockageException, SQLException, ClassNotFoundException {
 
 		try (Connection connection = createConnection();
-				PreparedStatement findPizza = connection.prepareStatement(FIND_PIZZA);) {
+				PreparedStatement findPizza = connection.prepareStatement(FIND_PIZZA);
+				ResultSet result = findPizza.executeQuery();) {
 			findPizza.setString(1, codePizza);
-			ResultSet result = findPizza.executeQuery();
 			boolean exist = result.first();
 			result.close();
 			findPizza.close();
