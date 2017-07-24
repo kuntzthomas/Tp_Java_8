@@ -6,12 +6,11 @@ package fr.pizzeria.model;
  */
 public class Pizza {
 
-	Integer id;
-	String code;
-	String nom;
-	double prix;
-	static int compteurId;
-	CategoriePizza categoriePizza;
+	private Integer id;
+	private String code;
+	private String nom;
+	private Double prix;
+	private CategoriePizza categoriePizza;
 
 	public Pizza() {
 
@@ -41,7 +40,6 @@ public class Pizza {
 	 */
 	public Pizza(String code, String nom, double prix, CategoriePizza categoriePizza) {
 
-		this.id = compteurId++;
 		this.code = code;
 		this.nom = nom;
 		this.prix = prix;

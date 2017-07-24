@@ -1,5 +1,6 @@
 package fr.pizzeria.ihm.menu.option;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import org.slf4j.Logger;
@@ -42,7 +43,7 @@ public class SupprimerPizzaOptionMenu extends OptionMenu {
 	 * @see fr.pizzeria.ihm.OptionMenu#execute(fr.pizzeria.dao.IPizzaDao)
 	 */
 	@Override
-	public boolean execute() throws StockageException {
+	public boolean execute() throws StockageException, ClassNotFoundException, SQLException {
 
 		LOG.info("Veuillez saisir le code");
 

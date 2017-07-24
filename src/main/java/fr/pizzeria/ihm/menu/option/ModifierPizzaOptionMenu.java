@@ -1,5 +1,6 @@
 package fr.pizzeria.ihm.menu.option;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import org.apache.commons.text.similarity.LevenshteinDistance;
@@ -29,7 +30,7 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 	}
 
 	@Override
-	public boolean execute() throws StockageException {
+	public boolean execute() throws StockageException, ClassNotFoundException, SQLException {
 
 		LOG.info("Veuillez saisir le code");
 		LOG.info("(99 pour abandonner)");

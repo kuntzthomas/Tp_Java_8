@@ -27,41 +27,6 @@
 		</plugins>
 	</build>
 
-	<profiles>
-		<profile>
-			<id>profile-development</id>
-			<properties>
-				<environment>dev</environment>
-				<db.username>sa</db.username>
-				<db.password></db.password>
-				<db.url>jdbc:mysql://localhost/pizza</db.url>
-				<db.driver>com.h2.Driver</db.driver>
-			</properties>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-				<property>
-					<name>environment</name>
-					<value>dev</value>
-				</property>
-			</activation>
-		</profile>
-		<profile>
-			<id>profile-production</id>
-			<properties>
-				<environment>prod</environment>
-				<db.username>Root</db.username>
-				<db.password></db.password>
-				<db.url>jdbc:mysql://localhost:3306/pizza</db.url>
-				<db.driver>com.mysql.jdbc.Driver</db.driver>
-			</properties>
-			<activation>
-				<property>
-					<name>environment</name>
-					<value>prod</value>
-				</property>
-			</activation>
-		</profile>
-	</profiles>
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.commons</groupId>

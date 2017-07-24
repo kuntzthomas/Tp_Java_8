@@ -1,5 +1,6 @@
 package fr.pizzeria.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import fr.pizzeria.dao.exception.DeletePizzaException;
@@ -21,26 +22,34 @@ public interface IPizzaDao {
 	/**
 	 * @param pizza
 	 * @throws SavePizzaException
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
 	 */
-	void saveNewPizza(Pizza pizza) throws SavePizzaException;
+	void saveNewPizza(Pizza pizza) throws SavePizzaException, SQLException, ClassNotFoundException;
 
 	/**
 	 * @param codePizza
 	 * @param pizza
 	 * @throws UpdatePizzaException
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
 	 */
-	void updatePizza(String codePizza, Pizza pizza) throws UpdatePizzaException;
+	void updatePizza(String codePizza, Pizza pizza) throws UpdatePizzaException, ClassNotFoundException, SQLException;
 
 	/**
 	 * @param codePizza
 	 * @throws DeletePizzaException
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
 	 */
-	void deletePizza(String codePizza) throws DeletePizzaException;
+	void deletePizza(String codePizza) throws DeletePizzaException, ClassNotFoundException, SQLException;
 
 	/**
 	 * @param codePizza
 	 * @return
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
 	 * @throws Exception
 	 */
-	boolean verifierExistence(String codePizza) throws StockageException;
+	boolean verifierExistence(String codePizza) throws StockageException, SQLException, ClassNotFoundException;
 }
