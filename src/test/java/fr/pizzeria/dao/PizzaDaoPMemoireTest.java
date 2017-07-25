@@ -40,7 +40,6 @@ public class PizzaDaoPMemoireTest {
 
 	public void testSaveNewPizza() throws Exception {
 
-		// TODO
 		Pizza pizza = new Pizza("CAL", "calzone", 15, CategoriePizza.VIANDE);
 		pizzaDaoMemoire.saveNewPizza(pizza);
 		assertThat(this.pizzaDaoMemoire.findAllPizzas()).contains(pizza);
@@ -48,7 +47,6 @@ public class PizzaDaoPMemoireTest {
 	}
 
 	public void testUpdatePizza() throws Exception {
-		// TODO
 
 		Pizza pizza = new Pizza("CAL", "calzone", 15, CategoriePizza.VIANDE);
 		pizzaDaoMemoire.updatePizza("MAR", pizza);
@@ -62,15 +60,5 @@ public class PizzaDaoPMemoireTest {
 		Pizza pizza = new Pizza("MAR", "Margherita", 14.00, CategoriePizza.VIANDE);
 		pizzaDaoMemoire.deletePizza("MAR");
 		assertThat(this.pizzaDaoMemoire.findAllPizzas()).doesNotContainSubsequence(pizza);
-	}
-
-	@Test
-	public void testVerifierExistenceException() {
-
-	}
-
-	@Test
-	public void testVerifierExistence() throws Exception {
-
 	}
 }

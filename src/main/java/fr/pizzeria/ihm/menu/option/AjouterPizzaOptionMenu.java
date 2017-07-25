@@ -19,7 +19,7 @@ import fr.pizzeria.model.Pizza;
 public class AjouterPizzaOptionMenu extends OptionMenu {
 
 	private static final Logger LOG = LoggerFactory.getLogger(AjouterPizzaOptionMenu.class);
-	Scanner scanner;
+	private Scanner scanner;
 	private IPizzaDao dao;
 
 	public AjouterPizzaOptionMenu(IPizzaDao dao) {
@@ -44,7 +44,7 @@ public class AjouterPizzaOptionMenu extends OptionMenu {
 	 * @see fr.pizzeria.ihm.OptionMenu#execute(fr.pizzeria.dao.IPizzaDao)
 	 */
 	@Override
-	public boolean execute() {
+	public void execute() {
 
 		LOG.info("Veuillez saisir le code de la pizza");
 		String code = scanner.next();
@@ -70,7 +70,6 @@ public class AjouterPizzaOptionMenu extends OptionMenu {
 				String categ = categories.name();
 				LOG.info(categ);
 			}
-
 		}
 
 		Pizza pizza = new Pizza(code, nom, prix, CategoriePizza.valueOf(categoriePizza));
@@ -82,7 +81,5 @@ public class AjouterPizzaOptionMenu extends OptionMenu {
 			LOG.debug("Error", e);
 		}
 		LOG.info("Pizza ajoutée");
-
-		return true;
 	}
 }

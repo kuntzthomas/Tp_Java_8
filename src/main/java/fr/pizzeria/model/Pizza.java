@@ -22,10 +22,13 @@ public class Pizza {
 	@GeneratedValue
 	private Integer id;
 
+	@Column
 	private String code;
 
+	@Column
 	private String nom;
 
+	@Column
 	private Double prix;
 
 	@Column(name = "categorie")

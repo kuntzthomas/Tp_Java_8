@@ -38,19 +38,14 @@ public class ListerPizzasOptionMenu extends OptionMenu {
 	 * @see fr.pizzeria.ihm.OptionMenu#execute(fr.pizzeria.dao.IPizzaDao)
 	 */
 	@Override
-	public boolean execute() throws Exception {
+	public void execute() throws Exception {
 
 		for (int i = 0; i < dao.findAllPizzas().size(); i++) {
-
 			if (dao.findAllPizzas() != null) {
-
 				LOG.info("{} -> {} : ({}€) {}", dao.findAllPizzas().get(i).getCode(),
 						dao.findAllPizzas().get(i).getNom(), dao.findAllPizzas().get(i).getPrix(),
 						dao.findAllPizzas().get(i).getCategoriePizza().getLibelle());
 			}
-
 		}
-
-		return false;
 	}
 }

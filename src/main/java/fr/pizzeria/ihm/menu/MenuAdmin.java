@@ -19,9 +19,9 @@ import fr.pizzeria.ihm.menu.option.SupprimerPizzaOptionMenu;
  * @author Thomas
  *
  */
-public class Menu {
+public class MenuAdmin implements IMenu {
 
-	private static final Logger LOG = LoggerFactory.getLogger(Menu.class);
+	private static final Logger LOG = LoggerFactory.getLogger(MenuAdmin.class);
 	private static final int NUMERO_OPTION_MENU = 99;
 
 	private String titre;
@@ -29,7 +29,7 @@ public class Menu {
 	private Scanner scanner;
 	private Map<Integer, OptionMenu> optionMenu = new TreeMap<>();
 
-	public Menu(IPizzaDao dao, Scanner scanner, String titre) {
+	public MenuAdmin(IPizzaDao dao, Scanner scanner, String titre) {
 
 		this.titre = titre;
 		this.scanner = scanner;
@@ -42,24 +42,27 @@ public class Menu {
 		optionMenu.put(2, new AjouterPizzaOptionMenu(dao));
 		optionMenu.put(3, new ModifierPizzaOptionMenu(dao));
 		optionMenu.put(4, new SupprimerPizzaOptionMenu(dao));
-		optionMenu.put(NUMERO_OPTION_MENU, new QuitterMenu(dao));
-
+		optionMenu.put(NUMERO_OPTION_MENU, new QuitterMenu());
 	}
 
-	/**
-	 * Affichage de la liste des pizzas
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see fr.pizzeria.ihm.menu.IMenu#afficher()
 	 */
+	@Override
 	public void afficher() {
 
 		LOG.info(titre);
 		optionMenu.forEach((numero, action) -> LOG.info(numero + ". " + action.getLibelle()));
 	}
 
-	/**
-	 * Lance la génération du menu puis l'aiguillage dans celui-ci
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @throws Exception
+	 * @see fr.pizzeria.ihm.menu.IMenu#manage()
 	 */
+	@Override
 	public void manage() throws Exception {
 
 		int choixMenu = 0;
@@ -67,12 +70,9 @@ public class Menu {
 		do {
 
 			afficher();
-
 			choixMenu = scanner.nextInt();
-
 			optionMenu.get(choixMenu).execute();
 
 		} while (choixMenu != 99);
-
 	}
 }

@@ -44,6 +44,6 @@ public class PizzaDaoJpaTest {
 
 		pizzaDaoJpa.saveNewPizza(new Pizza("CAL", "Calzone", 12.5d, CategoriePizza.VIANDE));
 		List<Pizza> result = em.createNamedQuery("pizza.findAll", Pizza.class).getResultList();
-		assertThat(listePizza).containsAll(pizzaDaoJpa.findAllPizzas());
+		assertThat(result).containsAll(pizzaDaoJpa.findAllPizzas());
 	}
 }

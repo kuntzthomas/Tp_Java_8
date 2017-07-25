@@ -4,7 +4,8 @@ import java.util.Scanner;
 
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.dao.PizzaDaoJpa;
-import fr.pizzeria.ihm.menu.Menu;
+import fr.pizzeria.ihm.menu.IMenu;
+import fr.pizzeria.ihm.menu.MenuAdmin;
 
 /**
  * @author Thomas
@@ -17,9 +18,8 @@ public class PizzeriaAdminConsoleApp {
 
 		IPizzaDao dao = new PizzaDaoJpa();
 		try (Scanner scanner = new Scanner(System.in)) {
-			Menu menu = new Menu(dao, scanner, "***** Pizzeria Administration *****");
+			IMenu menu = new MenuAdmin(dao, scanner, "***** Pizzeria Administration *****");
 			menu.manage();
 		}
 	}
-
 }

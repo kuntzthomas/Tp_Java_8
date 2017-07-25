@@ -30,7 +30,7 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 	}
 
 	@Override
-	public boolean execute() throws StockageException, ClassNotFoundException, SQLException {
+	public void execute() throws StockageException, ClassNotFoundException, SQLException {
 
 		LOG.info("Veuillez saisir le code");
 		LOG.info("(99 pour abandonner)");
@@ -78,8 +78,6 @@ public class ModifierPizzaOptionMenu extends OptionMenu {
 				LOG.info(e.getMessage());
 				LOG.debug("Error", e);
 			}
-
 		}
-		return false;
 	}
 }

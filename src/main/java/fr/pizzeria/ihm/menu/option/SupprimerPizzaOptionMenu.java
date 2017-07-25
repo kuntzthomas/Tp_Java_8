@@ -43,7 +43,7 @@ public class SupprimerPizzaOptionMenu extends OptionMenu {
 	 * @see fr.pizzeria.ihm.OptionMenu#execute(fr.pizzeria.dao.IPizzaDao)
 	 */
 	@Override
-	public boolean execute() throws StockageException, ClassNotFoundException, SQLException {
+	public void execute() throws StockageException, ClassNotFoundException, SQLException {
 
 		LOG.info("Veuillez saisir le code");
 
@@ -64,6 +64,5 @@ public class SupprimerPizzaOptionMenu extends OptionMenu {
 
 			LOG.info("Pizza supprimée");
 		}
-		return false;
 	}
 }

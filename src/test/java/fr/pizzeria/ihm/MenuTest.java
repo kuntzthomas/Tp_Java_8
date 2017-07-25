@@ -12,7 +12,8 @@ import org.junit.contrib.java.lang.system.SystemOutRule;
 import org.junit.contrib.java.lang.system.TextFromStandardInputStream;
 
 import fr.pizzeria.dao.IPizzaDao;
-import fr.pizzeria.ihm.menu.Menu;
+import fr.pizzeria.ihm.menu.IMenu;
+import fr.pizzeria.ihm.menu.MenuAdmin;
 
 public class MenuTest {
 
@@ -21,7 +22,7 @@ public class MenuTest {
 	@Rule
 	public final TextFromStandardInputStream systemInMock = emptyStandardInputStream();
 
-	private Menu menu;
+	private IMenu menu;
 	private IPizzaDao dao;
 	private Scanner scanner;
 
@@ -38,7 +39,7 @@ public class MenuTest {
 	@Test
 	public void TestAfficher() {
 
-		menu = new Menu(dao, scanner, "***** Pizzeria Administration *****");
+		menu = new MenuAdmin(dao, scanner, "***** Pizzeria Administration *****");
 		this.menu.afficher();
 
 		String logConsole = systemOutRule.getLog();

@@ -34,7 +34,13 @@
 			<version>1.1</version>
 		</dependency>
 
-
+		<!-- cryptage -->
+		<dependency>
+			<groupId>org.eclipse.ecf</groupId>
+			<artifactId>org.apache.commons.codec</artifactId>
+			<version>1.9.0.v20170208-1614</version>
+			<scope>compile</scope>
+		</dependency>
 
 		<!-- Dao -->
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->

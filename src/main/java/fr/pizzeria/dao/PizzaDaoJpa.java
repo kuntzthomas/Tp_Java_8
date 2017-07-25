@@ -1,6 +1,7 @@
 package fr.pizzeria.dao;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -15,6 +16,7 @@ import fr.pizzeria.dao.exception.DeletePizzaException;
 import fr.pizzeria.dao.exception.SavePizzaException;
 import fr.pizzeria.dao.exception.StockageException;
 import fr.pizzeria.dao.exception.UpdatePizzaException;
+import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
 public class PizzaDaoJpa implements IPizzaDao {
@@ -25,12 +27,38 @@ public class PizzaDaoJpa implements IPizzaDao {
 	EntityManager em;
 
 	public PizzaDaoJpa() {
-		this.emf = Persistence.createEntityManagerFactory("Pizza");
+		this.emf = Persistence.createEntityManagerFactory("pizza");
+		initPizza();
+	}
+
+	public void initPizza() {
+
+		em = emf.createEntityManager();
+
+		List<Pizza> listePizza = new ArrayList<>();
+		listePizza.add(new Pizza("PEP", "Pépéroni", 12.50, CategoriePizza.VIANDE));
+		listePizza.add(new Pizza("MAR", "Margherita", 14.00, CategoriePizza.VIANDE));
+		listePizza.add(new Pizza("REI", "La Reine", 11.50, CategoriePizza.VIANDE));
+		listePizza.add(new Pizza("FRO", "La 4 fromages", 12.00, CategoriePizza.FROMAGE));
+		listePizza.add(new Pizza("CAN", "La cannibale", 12.50, CategoriePizza.VIANDE));
+		listePizza.add(new Pizza("SAV", "La savoyarde", 13.00, CategoriePizza.VIANDE));
+		listePizza.add(new Pizza("ORI", "L'orientale", 13.50, CategoriePizza.VIANDE));
+
+		for (Pizza pizza : listePizza) {
+			em.getTransaction().begin();
+			em.persist(pizza);
+			em.getTransaction().commit();
+		}
+
+		em.close();
+		LOG.info("Table created");
 	}
 
 	private Pizza findByCode(String codePizza) {
+		em = emf.createEntityManager();
 		Pizza p = em.createNamedQuery("pizza.findByCode", Pizza.class).setParameter("codePizza", codePizza)
 				.getSingleResult();
+		em.close();
 		return p;
 	}
 

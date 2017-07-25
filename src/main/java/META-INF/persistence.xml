@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-	<persistence-unit name="Pizza" transaction-type="RESOURCE_LOCAL">
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="pizza" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<class>fr.pizzeria.model.Pizza</class>
+		<class>fr.pizzeria.model.Livreur</class>
+		<class>fr.pizzeria.model.Commande</class>
+		<class>fr.pizzeria.model.Client</class>
 		<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/pizza"/>
-			<property name="javax.persistence.jdbc.user" value="thomas"/>
-			<property name="javax.persistence.jdbc.password" value="pizza"/>
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/pizza" />
+			<property name="javax.persistence.jdbc.user" value="thomas" />
+			<property name="javax.persistence.jdbc.password" value="pizza" />
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="javax.persistence.schema-generation.database.action"
+				value="drop-and-create" />
+			<property name="hibernate.dialecterialue=" value="org.hibernate.dialect.MySQL57Dialect" />
 		</properties>
 	</persistence-unit>
 </persistence>
